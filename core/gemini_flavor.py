@@ -35,7 +35,7 @@ def generate_flavor_text(api_key, summary_text, model=None, persona=None):
     prompt = (
         f"{persona} "
         "Write ONE short, punchy sentence (max ~18 words) reacting to this Google Drive "
-        "update, casual tone, playful, in Indonesian (Bahasa gaul santai). No markdown, "
+        "update, casual tone, playful, in English (Casual). No markdown, "
         "no emoji-spam (at most one emoji), no quotes around the sentence.\n\n"
         f"Update: {summary_text}"
     )
