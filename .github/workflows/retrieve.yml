@@ -72,8 +72,8 @@ jobs:
       - name: Commit retrieved files to chore/asset
         id: commit
         env:
-          BOT_GIT_USERNAME: ${{ vars.BOT_GIT_USERNAME || 'Kozeki Ui' }}
-          BOT_GIT_EMAIL: ${{ vars.BOT_GIT_EMAIL || '45u35+kozeki-ui[bot]@users.noreply.github.com' }}
+          BOT_GIT_USERNAME: ${{ vars.BOT_GIT_USERNAME || 'Saiba Midori' }}
+          BOT_GIT_EMAIL: ${{ vars.BOT_GIT_EMAIL || 'Slafurry[bot]@users.noreply.github.com' }}
         run: |
           git config user.name "$BOT_GIT_USERNAME"
           git config user.email "$BOT_GIT_EMAIL"

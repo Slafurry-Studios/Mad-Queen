@@ -61,8 +61,35 @@ jobs:
 
       - name: Commit updated state to chore/asset
         env:
-          BOT_GIT_USERNAME: ${{ vars.BOT_GIT_USERNAME || 'Kozeki Ui' }}
-          BOT_GIT_EMAIL: ${{ vars.BOT_GIT_EMAIL || '45u35+kozeki-ui[bot]@users.noreply.github.com' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          GEMINI_PERSONA: ${{ secrets.GEMINI_PERSONA }}
+        run: |
+          python track.py \
+            --drive-folder-id "${{ secrets.DRIVE_MESH_FOLDER_ID }}" \
+            --service-account-b64 "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_B64 }}" \
+            --discord-webhook "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            --state-file "state/mesh_manifest.json" \
+            --project-name "${{ github.repository }} (mesh)"
+
+      - name: Check texture folder for changes
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          GEMINI_PERSONA: ${{ secrets.GEMINI_PERSONA }}
+        run: |
+          python track.py \
+            --drive-folder-id "${{ secrets.DRIVE_TEXTURE_FOLDER_ID }}" \
+            --service-account-b64 "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON_B64 }}" \
+            --discord-webhook "${{ secrets.DISCORD_WEBHOOK_URL }}" \
+            --state-file "state/texture_manifest.json" \
+            --project-name "${{ github.repository }} (texture)"
+
+      - name: Commit updated state directly to main
+        env:
+          BOT_GIT_USERNAME: ${{ vars.BOT_GIT_USERNAME || 'Saiba Midori' }}
+          BOT_GIT_EMAIL: ${{ vars.BOT_GIT_EMAIL || 'Slafurry[bot]@users.noreply.github.com' }}
+          BOT_PAT: ${{ secrets.BOT_PAT }}
         run: |
           git config user.name "$BOT_GIT_USERNAME"
           git config user.email "$BOT_GIT_EMAIL"
